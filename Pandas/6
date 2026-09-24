@@ -1,0 +1,8 @@
+import pandas as pd
+data = pd.read_csv("school_progress.csv", index_col="enrollment_id")
+print(data[["average_score", "clubs", "comment"]].isna().sum())
+a = data.duplicated(subset=["student_id", "course"], keep=False)
+print("С повторами:", a.sum())
+b = data.sort_values("average_score", ascending=False).drop_duplicates(subset=["student_id", "course"])
+print("До:",data.shape[0])
+print("После:", b.shape[0])

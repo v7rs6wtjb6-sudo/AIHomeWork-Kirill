@@ -1,0 +1,11 @@
+import pandas as pd
+data = pd.read_csv("school_progress.csv", index_col="enrollment_id")
+data["progress_calc"]= data["lessons_completed"]/data["total_lessons"] * 100
+data["progress_num"] = data["progress"].str.replace("%", "", regex=False).astype(float)
+a = data["progress_num"]-data["progress_calc"]
+b = data["progress_calc"]-data["progress_num"]
+c = (a > 1)|(b > 1)
+d = data[c]
+print(d[["progress", "progress_num", "progress_calc"]])
+e = a.max()
+print(e)

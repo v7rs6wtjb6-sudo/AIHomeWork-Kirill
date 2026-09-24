@@ -1,0 +1,7 @@
+import pandas as pd
+data = pd.read_csv("school_progress.csv", index_col="enrollment_id")
+a = (data["grade"].between(8, 11) & data["course"].isin(["Python", "Анализ данных", "Робототехника"]) & data["status"].isin(["active", "completed"]) & data["average_score"].notna() & (data["average_score"] >= 75))
+b = data.loc[a, ["student_name", "grade", "course", "status", "average_score", "hours_spent"]]
+c = b.sort_values(["average_score", "hours_spent"], ascending=[False, False])
+print(c.head(10))
+print(c["course"].value_counts())

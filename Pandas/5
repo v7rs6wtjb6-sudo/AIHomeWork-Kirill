@@ -1,0 +1,7 @@
+import pandas as pd
+data = pd.read_csv("school_progress.csv", index_col="enrollment_id")
+a = data.copy()
+a["comment_clean"]= a["comment"].fillna("нет комментария").str.strip().str.lower()
+a[["email_login", "email_domain"]] = a["email"].str.split("@", n =1, expand=True)
+a["has_robotics_club"] = a["clubs"].str.contains("робототехника", case=False, na=False)
+print(a[["comment_clean", "email_login", "email_domain", "has_robotics_club"]].head())

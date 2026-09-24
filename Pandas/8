@@ -1,0 +1,6 @@
+import pandas as pd
+data = pd.read_csv("school_progress.csv", index_col="enrollment_id")
+a = data.groupby(["course", "level"]).agg(records=("student_id", "size"), mean_score=("average_score", "mean"), mean_hours=("hours_spent", "mean"))
+b = a[a["records"]>=5]
+c = b.sort_values("mean_score", ascending=False).head(5)
+print(c)
